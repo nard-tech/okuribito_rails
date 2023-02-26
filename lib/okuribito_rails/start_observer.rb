@@ -16,11 +16,11 @@ module OkuribitoRails
     private
 
     def prohibit_env?
-      OkuribitoRails.config.prohibit_observe.include?(ENV["RAILS_ENV"])
+      OkuribitoRails.config.prohibit_observe.call
     end
 
     def force_eager_load?
-      OkuribitoRails.config.force_eager_load.include?(ENV["RAILS_ENV"])
+      OkuribitoRails.config.force_eager_load.call
     end
 
     def before_migrate?

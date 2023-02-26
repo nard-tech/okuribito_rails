@@ -11,15 +11,15 @@ module OkuribitoRails
     end
 
     config_accessor :prohibit_webui do
-      ["test"]
+      -> { ENV["RAILS_ENV"] == "test" }
     end
 
     config_accessor :prohibit_observe do
-      ["test"]
+      -> { ENV["RAILS_ENV"] == "test" }
     end
 
     config_accessor :force_eager_load do
-      ["test"]
+      -> { ENV["RAILS_ENV"] == "test" }
     end
   end
 end
