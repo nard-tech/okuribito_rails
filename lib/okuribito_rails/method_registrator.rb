@@ -3,12 +3,13 @@ require "yaml"
 module OkuribitoRails
   class MethodRegistrator
     def update_observe_methods(path)
-      input = observed_methods_from_yaml(path)
+      methods_from_yaml = observed_methods_from_yaml(path)
 
-      new_methods = input - methods_already_registered
-      new_methods.each { |new_method| register_method(new_method) }
-      old_methods = methods_already_registered - input
-      old_methods.each { |old_method| destroy_method(old_method) }
+      full_method_names_to_register = methods_from_yaml - methods_already_registered
+      full_method_names_to_register.each { |full_method_name| register_method(full_method_name) }
+
+      full_method_names_to_remove = methods_already_registered - methods_from_yaml
+      full_method_names_to_remove.each { |full_method_name| destroy_method(full_method_name) }
     end
 
     private
