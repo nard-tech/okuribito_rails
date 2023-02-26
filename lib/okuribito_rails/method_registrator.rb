@@ -4,10 +4,10 @@ module OkuribitoRails
   class MethodRegistrator
     def update_observe_methods(path)
       input = yaml_to_array(path)
-      base  = db_to_array
-      new_methods = input - base
+
+      new_methods = input - methods_already_registered
       new_methods.each { |new_method| register_method(new_method) }
-      old_methods = base - input
+      old_methods = methods_already_registered - input
       old_methods.each { |old_method| destroy_method(old_method) }
     end
 
@@ -24,8 +24,8 @@ module OkuribitoRails
       methods_array
     end
 
-    def db_to_array
-      @db_to_array ||= MethodCallSituation.all.map(&:full_method_name)
+    def methods_already_registered
+      @methods_already_registered ||= MethodCallSituation.all.map(&:full_method_name)
     end
 
     def register_method(method)
