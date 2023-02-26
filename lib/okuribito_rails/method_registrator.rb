@@ -3,7 +3,7 @@ require "yaml"
 module OkuribitoRails
   class MethodRegistrator
     def update_observe_methods(path)
-      input = yaml_to_array(path)
+      input = observed_methods_from_yaml(path)
 
       new_methods = input - methods_already_registered
       new_methods.each { |new_method| register_method(new_method) }
@@ -13,15 +13,19 @@ module OkuribitoRails
 
     private
 
-    def yaml_to_array(path)
+    def observed_methods_from_yaml(path)
       yaml = YAML.load_file(path)
-      methods_array = []
-      yaml.each do |class_name, observe_methods|
-        observe_methods.each do |observe_method|
-          methods_array.push(class_name + observe_method)
+
+      full_method_names = []
+
+      yaml.each do |class_name, observed_methods|
+        observed_methods.each do |observed_method|
+          full_method_name = [class_name, observed_method].join
+          full_method_names.push(full_method_name)
         end
       end
-      methods_array
+
+      full_method_names
     end
 
     def methods_already_registered
