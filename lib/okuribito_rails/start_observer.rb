@@ -16,7 +16,7 @@ module OkuribitoRails
     private
 
     def prohibit_env?
-      OkuribitoRails.config.prohibit_observe.call
+      OkuribitoRails.config.prohibit_observation.call
     end
 
     def force_eager_load?
