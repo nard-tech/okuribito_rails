@@ -10,7 +10,7 @@ module OkuribitoRails
 
       Rails.application.eager_load! if force_eager_load?
 
-      regist_method(yaml_path)
+      register_method(yaml_path)
       start_observer(yaml_path)
     end
 
@@ -32,7 +32,7 @@ module OkuribitoRails
       OkuribitoRails.config.setting_path
     end
 
-    def regist_method(yaml_path)
+    def register_method(yaml_path)
       # Update database by observed methods.
       RegistMethod.new.update_observe_methods(yaml_path)
     end
