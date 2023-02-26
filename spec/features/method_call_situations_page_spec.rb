@@ -52,7 +52,7 @@ RSpec.feature "method_call_situation pages", type: :feature do
       within(".search-area") do
         fill_in "class_name", with: "User"
         fill_in "method_name", with: "profile"
-        fill_in "x_days_passed", with: 0
+        fill_in "days_passed", with: 0
         check "uncalled_method"
         click_button "Search"
       end

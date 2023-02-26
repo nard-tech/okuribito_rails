@@ -15,7 +15,7 @@ module OkuribitoRails
       params.slice(
         :class_name,
         :method_name,
-        :x_days_passed,
+        :days_passed,
         :uncalled_method,
         :called_method
       ).presence || {}
