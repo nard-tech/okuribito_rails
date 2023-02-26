@@ -4,7 +4,8 @@ require "okuribito_rails/observe_method"
 module OkuribitoRails
   class StartObserver
     def start
-      return if prohibit_env? || before_migrate?
+      return if prohibit_observation?
+      return unless already_migrated?
       return unless File.exist?(yaml_path = setting_path)
 
       Rails.application.eager_load! if force_eager_load?
@@ -15,16 +16,16 @@ module OkuribitoRails
 
     private
 
-    def prohibit_env?
-      OkuribitoRails.config.prohibit_observe.call
+    def prohibit_observation?
+      OkuribitoRails.config.prohibit_observation.call
+    end
+
+    def already_migrated?
+      ActiveRecord::Base.connection.table_exists?("okuribito_rails_method_call_situations")
     end
 
     def force_eager_load?
       OkuribitoRails.config.force_eager_load.call
-    end
-
-    def before_migrate?
-      !ActiveRecord::Base.connection.table_exists? "okuribito_rails_method_call_situations"
     end
 
     def setting_path

@@ -14,7 +14,7 @@ module OkuribitoRails
       -> { ENV["RAILS_ENV"] == "test" }
     end
 
-    config_accessor :prohibit_observe do
+    config_accessor :prohibit_observation do
       -> { ENV["RAILS_ENV"] == "test" }
     end
 
