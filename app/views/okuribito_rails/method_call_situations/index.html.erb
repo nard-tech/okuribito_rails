@@ -45,7 +45,7 @@
           <%= method_call_situation.called_num %>
         </td>
         <td>
-          <%= (Time.zone.today - method_call_situation.created_at.to_date).to_i %>
+          <%= method_call_situation.days_monitored %>
         </td>
         <td>
           <%= method_call_situation.created_at %>
