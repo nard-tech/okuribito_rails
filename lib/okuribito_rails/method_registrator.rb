@@ -1,7 +1,7 @@
 require "yaml"
 
 module OkuribitoRails
-  class RegistMethod
+  class MethodRegistrator
     def update_observe_methods(path)
       input = yaml_to_array(path)
       base  = db_to_array

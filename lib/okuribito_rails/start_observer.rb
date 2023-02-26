@@ -1,4 +1,4 @@
-require "okuribito_rails/regist_method"
+require "okuribito_rails/method_registrator"
 require "okuribito_rails/observe_method"
 
 module OkuribitoRails
@@ -34,7 +34,7 @@ module OkuribitoRails
 
     def register_method(yaml_path)
       # Update database by observed methods.
-      RegistMethod.new.update_observe_methods(yaml_path)
+      MethodRegistrator.new.update_observe_methods(yaml_path)
     end
 
     def start_observer(yaml_path)
