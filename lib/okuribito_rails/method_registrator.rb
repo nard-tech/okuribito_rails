@@ -2,20 +2,31 @@ require "yaml"
 
 module OkuribitoRails
   class MethodRegistrator
-    def update_observe_methods(path)
-      methods_from_yaml = observed_methods_from_yaml(path)
+    class << self
+      def execute(yaml_file_path)
+        new(yaml_file_path).execute
+      end
 
-      full_method_names_to_register = methods_from_yaml - methods_already_registered
+      private :new
+    end
+
+    def initialize(yaml_file_path)
+      @yaml_file_path = yaml_file_path
+    end
+
+    def execute
       full_method_names_to_register.each { |full_method_name| register_method(full_method_name) }
-
-      full_method_names_to_remove = methods_already_registered - methods_from_yaml
       full_method_names_to_remove.each { |full_method_name| destroy_method(full_method_name) }
     end
 
     private
 
-    def observed_methods_from_yaml(path)
-      yaml = YAML.load_file(path)
+    attr_reader :yaml_file_path
+
+    def observed_methods_from_yaml
+      return @observed_methods_from_yaml if defined?(@observed_methods_from_yaml)
+
+      yaml = YAML.load_file(yaml_file_path)
 
       full_method_names = []
 
@@ -26,11 +37,19 @@ module OkuribitoRails
         end
       end
 
-      full_method_names
+      @observed_methods_from_yaml = full_method_names
     end
 
     def methods_already_registered
       @methods_already_registered ||= MethodCallSituation.all.map(&:full_method_name)
+    end
+
+    def full_method_names_to_register
+      observed_methods_from_yaml - methods_already_registered
+    end
+
+    def full_method_names_to_destroy
+      methods_already_registered - observed_methods_from_yaml
     end
 
     def register_method(method)

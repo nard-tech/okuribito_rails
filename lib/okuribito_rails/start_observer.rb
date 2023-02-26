@@ -34,7 +34,7 @@ module OkuribitoRails
 
     def register_method(yaml_path)
       # Update database by observed methods.
-      MethodRegistrator.new.update_observe_methods(yaml_path)
+      MethodRegistrator.execute(yaml_path)
     end
 
     def start_observer(yaml_path)
