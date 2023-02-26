@@ -2,13 +2,13 @@ require "spec_helper"
 
 describe OkuribitoRails::StartObserver do
   describe "#start" do
-    let(:prohibit_env) { false }
+    let(:prohibit_observation) { false }
     let(:before_migrate) { false }
     let(:setting_path) { "spec/support/test_config.yml" }
     let(:start_observer) { OkuribitoRails::StartObserver.new }
 
     before do
-      allow(start_observer).to receive(:prohibit_env?).and_return(prohibit_env)
+      allow(start_observer).to receive(:prohibit_observation?).and_return(prohibit_observation)
       allow(start_observer).to receive(:before_migrate?).and_return(before_migrate)
       allow(start_observer).to receive(:setting_path).and_return(setting_path)
       allow(start_observer).to receive(:regist_method)
@@ -22,7 +22,7 @@ describe OkuribitoRails::StartObserver do
     end
 
     context "prohibited env" do
-      let(:prohibit_env) { true }
+      let(:prohibit_observation) { true }
       it { expect(start_observer).not_to have_received(:regist_method) }
       it { expect(start_observer).not_to have_received(:start_observer) }
     end
