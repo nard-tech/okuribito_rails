@@ -6,11 +6,11 @@ OkuribitoRails.configure do |config|
   config.once_detect = true
 
   # You will not be able to access the Web UI in the specified environment.
-  config.prohibit_webui = ["test"]
+  config.prohibit_webui = -> { ENV["RAILS_ENV"] == "test" }
 
   # It will not monitor method calls in the specified environment.
-  config.prohibit_observe = ["test"]
+  config.prohibit_observe = -> { ENV["RAILS_ENV"] == "test" }
 
   # OkuribitoRails run `Rails.application.eager_load!` in the specified environment.
-  config.force_eager_load = ["test"]
+  config.force_eager_load = -> { ENV["RAILS_ENV"] == "test" }
 end

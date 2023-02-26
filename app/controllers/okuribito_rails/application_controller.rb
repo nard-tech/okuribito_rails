@@ -7,7 +7,7 @@ module OkuribitoRails
     private
 
     def prohibited_env?
-      OkuribitoRails.config.prohibit_webui.include?(ENV["RAILS_ENV"])
+      OkuribitoRails.config.prohibit_webui.call
     end
   end
 end
