@@ -15,8 +15,8 @@ module OkuribitoRails
     end
 
     def execute
-      full_method_names_to_register.each { |full_method_name| register_method(full_method_name) }
-      full_method_names_to_remove.each { |full_method_name| destroy_method(full_method_name) }
+      full_method_names_to_register.each { |full_method_name| MethodCallSituation.register(full_method_name) }
+      full_method_names_to_destroy.each { |full_method_name| MethodCallSituation.remove(full_method_name) }
     end
 
     private
@@ -50,16 +50,6 @@ module OkuribitoRails
 
     def full_method_names_to_destroy
       methods_already_registered - observed_methods_from_yaml
-    end
-
-    def register_method(method)
-      a = method.split(/\s*(#|\.)\s*/)
-      MethodCallSituation.create(class_name: a[0], method_symbol: a[1], method_name: a[2])
-    end
-
-    def destroy_method(method)
-      a = method.split(/\s*(#|\.)\s*/)
-      MethodCallSituation.find_by(class_name: a[0], method_symbol: a[1], method_name: a[2]).destroy
     end
   end
 end
