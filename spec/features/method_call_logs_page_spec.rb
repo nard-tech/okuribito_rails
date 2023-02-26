@@ -17,7 +17,7 @@ RSpec.feature "method_call_log pages", type: :feature do
   given(:prohibited_env) { false }
 
   background do
-    allow_any_instance_of(OkuribitoRails::ApplicationController).to receive(:prohibited_env?).and_return(prohibited_env)
+    allow_any_instance_of(OkuribitoRails::ApplicationController).to receive(:prohibited?).and_return(prohibited_env)
     FactoryGirl.create(:method_call_situation, :user_feed, :with_method_call_log, called_num: 1)
     FactoryGirl.create(:method_call_situation, :user_profile, :with_method_call_log, called_num: 0)
 

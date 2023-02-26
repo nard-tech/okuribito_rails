@@ -21,7 +21,7 @@ RSpec.feature "method_call_situation pages", type: :feature do
   given(:prohibited_env) { false }
 
   background do
-    allow_any_instance_of(OkuribitoRails::ApplicationController).to receive(:prohibited_env?).and_return(prohibited_env)
+    allow_any_instance_of(OkuribitoRails::ApplicationController).to receive(:prohibited?).and_return(prohibited_env)
     FactoryGirl.create(:method_call_situation, :user_feed, called_num: 1)
     FactoryGirl.create(:method_call_situation, :user_profile, called_num: 0)
     visit method_call_situations_path
