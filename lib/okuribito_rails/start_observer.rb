@@ -6,7 +6,8 @@ module OkuribitoRails
     def start
       return if prohibit_observation?
       return unless already_migrated?
-      return unless File.exist?(yaml_path = setting_path)
+
+      raise ArgumentError unless File.exist?(yaml_path = setting_path)
 
       Rails.application.eager_load! if force_eager_load?
 
