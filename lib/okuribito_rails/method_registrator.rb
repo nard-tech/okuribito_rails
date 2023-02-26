@@ -25,12 +25,7 @@ module OkuribitoRails
     end
 
     def db_to_array
-      methods_array = []
-      results = MethodCallSituation.all
-      results.each do |result|
-        methods_array.push(result.class_name + result.method_symbol + result.method_name)
-      end
-      methods_array
+      @db_to_array ||= MethodCallSituation.all.map(&:full_method_name)
     end
 
     def register_method(method)
