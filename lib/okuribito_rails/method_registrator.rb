@@ -6,7 +6,7 @@ module OkuribitoRails
       input = yaml_to_array(path)
       base  = db_to_array
       new_methods = input - base
-      new_methods.each { |new_method| regist_method(new_method) }
+      new_methods.each { |new_method| register_method(new_method) }
       old_methods = base - input
       old_methods.each { |old_method| destroy_method(old_method) }
     end
@@ -33,7 +33,7 @@ module OkuribitoRails
       methods_array
     end
 
-    def regist_method(method)
+    def register_method(method)
       a = method.split(/\s*(#|\.)\s*/)
       MethodCallSituation.create(class_name: a[0], method_symbol: a[1], method_name: a[2])
     end
