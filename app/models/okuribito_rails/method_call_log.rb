@@ -15,5 +15,9 @@ module OkuribitoRails
       mcl = mcl.with_method_name(args[:method_name]) if args[:method_name].present?
       mcl
     end
+
+    def full_method_name
+      [class_name, method_symbol, method_name].join
+    end
   end
 end
