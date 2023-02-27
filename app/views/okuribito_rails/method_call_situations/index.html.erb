@@ -39,13 +39,13 @@
     <% @method_call_situations.each do |method_call_situation| %>
       <tr>
         <td>
-          <%= method_call_situation.class_name %><%= method_call_situation.method_symbol %><%= method_call_situation.method_name %>
+          <%= method_call_situation.full_method_name %>
         </td>
         <td>
           <%= method_call_situation.called_num %>
         </td>
         <td>
-          <%= (Time.zone.today - method_call_situation.created_at.to_date).to_i %>
+          <%= method_call_situation.days_monitored %>
         </td>
         <td>
           <%= method_call_situation.created_at %>

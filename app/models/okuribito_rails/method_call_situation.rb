@@ -29,5 +29,13 @@ module OkuribitoRails
       mcs = mcs.with_called_method if args[:called_method].present?
       mcs
     end
+
+    def full_method_name
+      [class_name, method_symbol, method_name].join
+    end
+
+    def days_monitored
+      (Time.zone.today - created_at.to_date).to_i
+    end
   end
 end
